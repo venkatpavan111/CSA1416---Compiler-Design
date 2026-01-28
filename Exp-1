@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+void analyze(char *code) {
+    while (*code) {
+        if (isspace(*code)) {
+            code++;
+            continue;
+        }
+        if (isalpha(*code) || *code == '_') {
+            printf("Identifier: %c\n", *code);
+        } else if (isdigit(*code)) {
+            printf("Constant: %c\n", *code);
+        } else {
+            printf("Operator/Symbol: %c\n", *code);
+        }
+        code++;
+    }
+}
+
+int main() {
+    char code[] = "int x = 10;";
+    analyze(code);
+    return 0;
+}
