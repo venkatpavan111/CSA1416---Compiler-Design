@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+void analyze(char *code) {
+    while (*code) {
+        if (isspace(*code)) {
+            code++;
+            continue;
+        }
+        if (strncmp(code, "//", 2) == 0) {
+            printf("Single-line Comment\n");
+            return;
+        }
+        if (strncmp(code, "/*", 2) == 0) {
+            printf("Multi-line Comment\n");
+            return;
+        }
+        if (isalpha(*code) || *code == '_') {
+            printf("Identifier: %c\n", *code);
+        } else if (isdigit(*code)) {
+            printf("Constant: %c\n", *code);
+        } else if (*code == '+' || *code == '-' || *code == '*' || *code == '/') {
+            printf("Operator: %c\n", *code);
+        } else {
+            printf("Symbol: %c\n", *code);
+        }
+        code++;
+    }
+}
+
+int main() {
+    char code1[] = "// This is a comment";
+    char code2[] = "/* This is a multi-line comment */";
+    char code3[] = "int x = 10 + 5 - 2 * 3 / 1;";
+    
+    analyze(code1);
+    analyze(code2);
+    analyze(code3);
+    
+    return 0;
+}
